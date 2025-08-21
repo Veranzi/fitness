@@ -1,0 +1,141 @@
+/* General body styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #343a40;
+    border-bottom: 2px solid #ff5733;
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #ff5733;
+}
+
+.navbar-nav {
+    margin-left: auto;
+    list-style-type: none;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+    font-weight: 500;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #ff5733;
+}
+
+.navbar-nav .nav-item .btn {
+    background-color: #ff5733;
+    color: white;
+    font-weight: 600;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.navbar-nav .nav-item .btn:hover {
+    background-color: #c74d2a;
+}
+
+/* Main Content Styling */
+.container {
+    margin-top: 30px;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Body Data Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table .btn-info {
+    background-color: #17a2b8;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.table .btn-info:hover {
+    background-color: #138496;
+}
+
+/* Button for Add New Body Data */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav .nav-item .nav-link {
+        font-size: 14px;
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px;
+    }
+
+    .table .btn-info {
+        padding: 8px 15px;
+    }
+}

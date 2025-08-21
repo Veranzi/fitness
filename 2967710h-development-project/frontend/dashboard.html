@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Dashboard</title>
+    <link rel="stylesheet" href="{% static 'dashboardyy.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="custom-navbar">
+        
+            <a class="brand-name" href="#">FITNESS JOURNAL</a>
+            <ul class="nav-links">
+                <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'training_records' %}">Training Records</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'diet_log' %}">Diet Log</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'sleep_records' %}">Sleep Records</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'body_data' %}">Body Data</a></li>
+                <li class="nav-item"><a class="btn-logout" href="{% url 'index' %}">Logout</a></li>
+            </ul>
+       
+    </nav>
+
+
+
+
+    <div class="container mt-5">
+        <h1>Welcome to Your Fitness Dashboard</h1>
+        <p>This is where you can track your progress, manage your fitness records, and stay motivated. 
+            Use the navigation above to explore your journey to better health!</p>
+
+        <!-- Grid Layout for Charts (2 Rows, 2 Columns) -->
+        <div class="chart-grid">
+            <!-- Chart: Body Data -->
+            <div class="chart-container">
+                <canvas id="bodyDataChart" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Chart: Diet Log -->
+            <div class="chart-container">
+                <canvas id="dietChart" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Chart: Sleep Records -->
+            <div class="chart-container">
+                <canvas id="sleepChart" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Chart: Workout Records -->
+            <div class="chart-container">
+                <canvas id="workoutChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch chart data from the backend API
+        fetch('{% url "chart_data" %}')
+            .then(response => response.json())
+            .then(data => {
+                // Body Data Chart
+                const bodyDataChart = new Chart(document.getElementById('bodyDataChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: data.body_data.map(entry => entry.date),
+                        datasets: [{
+                            label: 'Weight',
+                            data: data.body_data.map(entry => entry.weight),
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            fill: false
+                        }]
+                    }
+                });
+
+                // Diet Log Chart (Calories)
+                const dietChart = new Chart(document.getElementById('dietChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.meals.map(entry => entry.date),
+                        datasets: [{
+                            label: 'Calories',
+                            data: data.meals.map(entry => entry.calories),
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    }
+                });
+
+                // Sleep Records Chart (Hours Slept)
+                const sleepChart = new Chart(document.getElementById('sleepChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: data.sleep.map(entry => entry.date),
+                        datasets: [{
+                            label: 'Hours Slept',
+                            data: data.sleep.map(entry => entry.hours_slept),
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            fill: false
+                        }]
+                    }
+                });
+
+                // Workout Records Chart (Weight Lifted)
+                const workoutChart = new Chart(document.getElementById('workoutChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.workouts.map(entry => entry.date),
+                        datasets: [{
+                            label: 'Weight Lifted (kg)',
+                            data: data.workouts.map(entry => entry.weight),
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1
+                        }]
+                    }
+                });
+            });
+    </script>
+</body>
+
+</html>
